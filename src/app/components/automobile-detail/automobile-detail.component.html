@@ -1,0 +1,106 @@
+<section>
+
+    <app-header></app-header>
+
+    <div class="bg-gray-100 min-h-screen p-8">
+        <nav class="text-sm text-gray-500 mb-4">
+            <a [routerLink]="['/']" class="hover:underline">Home</a> /
+            <span class="text-gray-700 font-medium">{{ type }}</span>
+        </nav>
+
+        <h1 class="text-3xl font-bold text-[#320c69] mb-6">
+            {{ type }} for Sale
+        </h1>
+
+        <p class="text-[#320c69] max-w-3xl leading-relaxed mb-10">
+            There are {{vehicleList.length}} {{ type }}s available for sale online in India at starting price of 2,332.
+            Below listed <strong>used</strong> and <strong>new {{ type }}s</strong> are available online at Fixed Price.
+            All {{ type }}s come with full circle trust score and 100% refundable token amount.
+            Buy good condition {{ type }}s from the largest collection at the best price in India.
+            Select your favorite {{ type }} and make your dream come true of buying your own vehicle.
+        </p>
+
+        <div class="flex justify-end mb-6">
+            <div class="flex items-center gap-4">
+                <label for="sortBy" class="text-sm text-gray-600">Sort By:</label>
+                <select id="sortBy" (change)="onSortChange($event)" class="border p-2 rounded">
+                    <option value="Default">Default</option>
+                    <option value="priceAsc">Price: Low to High</option>
+                    <option value="priceDesc">Price: High to Low</option>
+                    <option value="kmsAsc">KMs Driven: Low to High</option>
+                    <option value="kmsDesc">KMs Driven: High to Low</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div *ngFor="let vehicle of vehicleList" (click)="openPopup(vehicle)"
+                class="bg-white rounded-lg shadow hover:shadow-md hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4">
+
+                <div class="relative">
+                    <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}"
+                        class="w-full h-48 object-cover rounded-md" />
+                </div>
+
+                <div class="mt-4">
+                    <h2 class="text-md font-semibold text-gray-900 mb-2">{{ vehicle.title }}</h2>
+
+                    <div class="text-lg font-bold text-[#320c69] mb-1">
+                        ₹ {{ vehicle.price/2}}
+                    </div>
+                    <div class="text-sm text-gray-500 mb-4">EMI from N/A</div>
+
+                    <div class="flex flex-wrap text-gray-600 text-sm gap-3">
+                        <div class="flex flex-col items-center gap-1">
+                            <p>km Driven</p>
+                            {{ vehicle.kmsDriven}}
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <p>Location</p>
+                            {{ vehicle.location }}
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <p>Fule type</p>
+                            {{ vehicle.fuelType }}
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <p>Transmission</p>
+                            {{ vehicle.transmission }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" *ngIf="isPopupOpen"
+            (click)="closePopup()">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md relative"
+                (click)="$event.stopPropagation()">
+                <img [src]="selectedVehicle?.imageUrl" alt="vehicle" class="rounded-lg w-full h-48 object-cover mb-4" />
+
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">{{ selectedVehicle?.title }}</h2>
+
+                <div class="space-y-2 text-gray-600">
+                    <p><strong class="text-gray-800">Price:</strong> ₹ {{ selectedVehicle?.price | number }}</p>
+                    <p><strong class="text-gray-800">Location:</strong> {{ selectedVehicle?.location }}</p>
+                    <p><strong class="text-gray-800">Fuel Type:</strong> {{ selectedVehicle?.fuelType }}</p>
+                    <p><strong class="text-gray-800">Transmission:</strong> {{ selectedVehicle?.transmission }}</p>
+                    <p><strong class="text-gray-800">Kilometers Driven:</strong> {{ selectedVehicle?.kmsDriven }} km</p>
+                </div>
+
+                <div class="mt-6 flex gap-4">
+                    <button
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
+                        Buy Now
+                    </button>
+                    <button
+                        class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg transition"
+                        (click)="closePopup()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <app-footer></app-footer>
+</section>

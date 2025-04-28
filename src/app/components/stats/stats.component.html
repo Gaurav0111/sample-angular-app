@@ -1,0 +1,17 @@
+<section class="py-8 bg-[#f6f4f8] rounded-2xl text-white">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="flex flex-col lg:flex-row justify-between items-center mb-8">
+            <h2 class=" text-[#320c69] text-lg font-semibold mb-4 lg:mb-0">
+                Recommended by <span class="font-bold">1 Lakh+</span> sellers across India
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div *ngFor="let stat of stats" class="bg-[#3d0075] rounded-lg py-6 px-4 flex flex-col items-center">
+                <div class="text-3xl mb-2">{{ stat.icon }}</div>
+                <div class="text-2xl font-bold">{{ stat.value }}</div>
+                <div class="text-sm text-gray-300">{{ stat.label }}</div>
+            </div>
+        </div>
+    </div>
+</section>

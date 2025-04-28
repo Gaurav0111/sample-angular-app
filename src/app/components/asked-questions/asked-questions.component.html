@@ -1,0 +1,20 @@
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl text-[#320c69] font-semibold text-center mb-6">Frequently Asked Questions</h1>
+  
+    <div *ngFor="let faq of faqs; let i = index">
+      <div class="mb-4">
+        <button
+          (click)="toggle(i)"
+          class="w-full text-left bg-gray-200 hover:bg-gray-300 text-[#320c69] font-semibold py-3 px-4 rounded-lg transition duration-300"
+        >
+          <span>{{ faq.question }}</span>
+        </button>
+  
+        <div *ngIf="openIndex === i" class="mt-2 p-4 bg-gray-100 text-[#320c69] rounded-lg">
+          <p>{{ faq.answer }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
