@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-automobile',
@@ -21,4 +22,11 @@ export class AutomobileComponent {
     { name: 'Tractor', img: 'assets/images/tractor-image-removebg-preview.png', link: '#' },
     { name: 'JCB', img: 'assets/images/JCB-image-removebg-preview.png', link: '#' }
   ];
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        window.scrollTo(0, 0);
+      });
+  }
 }

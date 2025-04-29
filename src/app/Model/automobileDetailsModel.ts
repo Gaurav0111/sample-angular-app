@@ -6,4 +6,5 @@ export class AutomobileDetailsModel {
     transmission?: string;
     imageUrl?: string;
     kmsDriven?: number;
+    brand?: string;
 }

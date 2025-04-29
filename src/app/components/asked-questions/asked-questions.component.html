@@ -1,20 +1,20 @@
+<div class="max-w-6xl mx-auto px-4 py-12">
+  <h2 class="text-4xl font-bold text-center text-[#320c69] mb-12">Frequently Asked Questions</h2>
 
-<div class="max-w-4xl mx-auto px-4 py-8">
-    <h1 class="text-3xl text-[#320c69] font-semibold text-center mb-6">Frequently Asked Questions</h1>
-  
-    <div *ngFor="let faq of faqs; let i = index">
-      <div class="mb-4">
-        <button
-          (click)="toggle(i)"
-          class="w-full text-left bg-gray-200 hover:bg-gray-300 text-[#320c69] font-semibold py-3 px-4 rounded-lg transition duration-300"
-        >
-          <span>{{ faq.question }}</span>
-        </button>
-  
-        <div *ngIf="openIndex === i" class="mt-2 p-4 bg-gray-100 text-[#320c69] rounded-lg">
-          <p>{{ faq.answer }}</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let faq of faqs; let i = index" (click)="toggle(i)"
+      class="cursor-pointer p-6 rounded-lg shadow-md transition duration-300 ease-in-out">
+      <div class="flex items-start space-x-2">
+        <div class="text-xl font-bold">
+          <span>?</span>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-2">{{ faq.question }}</h3>
+          <p class="text-sm">
+            {{ faq.answer }}
+          </p>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

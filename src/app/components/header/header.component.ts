@@ -9,9 +9,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  isDropdownOpen = false;
-
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+  showLoginPopup = false;
+  showCallPopup = false;
+  cities = ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Pune', 'Ahmedabad', 'Jaipur', 'Surat'];
+  showProfile() {
+    this.showLoginPopup =!this.showLoginPopup;
+    this.showCallPopup = false;
+  }
+  showCall() {
+    this.showLoginPopup =false;
+    this.showCallPopup = !this.showCallPopup;
   }
 }
