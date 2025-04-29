@@ -1,0 +1,37 @@
+<div class="w-full text-center font-bold text-[#320c69] text-4xl my-10">
+    Your Dream Vehicle
+    <p class="text-sm font-normal text-xl text-[#320c69]">Just a click Away</p>
+  </div>
+  
+  <div class="relative overflow-hidden bg-white p-4 rounded-xl shadow mb-10">
+    <div class="flex gap-4 scroll-track">
+      <ng-container *ngFor="let vehicle of vehicles.concat(vehicles)">
+        <div
+          (click)="openVehicleDetails(vehicle)"
+          class="vehicle-card"
+        >
+          <img
+            [src]="vehicle.imageUrl"
+            alt="{{ vehicle.title }}"
+            class="w-full h-32 object-cover rounded-md mb-3"
+          />
+          <div class="text-sm font-semibold truncate">{{ vehicle.title }}</div>
+          <div class="text-gray-600 text-sm truncate">{{ vehicle.brand }} | {{ vehicle.location }}</div>
+          <div class="text-green-600 font-bold text-base">₹ {{ vehicle.price | number }}</div>
+          <div class="text-xs text-gray-500">Driven: {{ vehicle.kmsDriven | number }} km</div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
+  <div *ngIf="selectedVehicle" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-lg p-6 w-96 relative shadow-xl">
+      <button (click)="closeModal()" class="absolute top-2 right-2 text-gray-500 hover:text-black">✕</button>
+      <img [src]="selectedVehicle.imageUrl" alt="{{ selectedVehicle.title }}" class="w-full h-40 object-cover rounded mb-4">
+      <h2 class="text-lg font-bold">{{ selectedVehicle.title }}</h2>
+      <p class="text-sm text-gray-600">{{ selectedVehicle.brand }} | {{ selectedVehicle.location }}</p>
+      <p class="text-green-600 font-bold text-lg mt-2">₹ {{ selectedVehicle.price | number }}</p>
+      <p class="text-xs text-gray-500">Driven: {{ selectedVehicle.kmsDriven | number }} km</p>
+    </div>
+  </div>
+  

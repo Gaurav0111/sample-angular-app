@@ -1,0 +1,40 @@
+.scroll-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-left 30s linear infinite;
+    animation-play-state: running;
+}
+
+.scroll-track:hover {
+    animation-play-state: paused;
+}
+
+.vehicle-card {
+    background-color: #f3f4f6;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    width: 250px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 270px;
+    cursor: pointer;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .scroll-track {
+        animation-duration: 20s;
+    }
+}
