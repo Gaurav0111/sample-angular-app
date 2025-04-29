@@ -1,41 +1,52 @@
-<div class="flex justify-between items-center px-40 py-4 relative">
-  
-    <div class="text-[#320c69] text-2xl font-bold tracking-wide">
-      <a [routerLink]="['/']" >Sample App</a> 
-    </div>
-  
-    <div class="flex items-center space-x-10">
-  
-      <div class="relative">
-        <button (click)="toggleDropdown()" class="flex items-center text-[#320c69] font-bold hover:underline focus:outline-none">
-          Buy Car
-          <svg [ngClass]="{'transform rotate-180': isDropdownOpen}" class="ml-1 w-4 h-4 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.188l3.71-3.958a.75.75 0 111.08 1.04l-4.25 4.533a.75.75 0 01-1.08 0l-4.25-4.533a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-          </svg>
-        </button>
-  
-        <div *ngIf="isDropdownOpen" class="absolute bg-white shadow-lg mt-2 rounded-md w-48 z-10">
-          <ul class="flex flex-col">
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Delhi</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Mumbai</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Bangalore</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Chennai</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Hyderabad</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Kolkata</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Pune</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Ahmedabad</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Jaipur</a></li>
-            <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Surat</a></li>
-          </ul>
-        </div>
-      </div>
-  
-      <div class="flex flex-col text-[#320c69] font-bold text-right">
-        <span>Call us at</span>
-        <a href="tel:9568265862" class="hover:underline">+91 95682 65862</a>
-      </div>
-  
-    </div>
-  
+<header class="flex justify-between items-center px-8 lg:px-40 py-4 bg-white shadow-sm relative z-20">
+
+  <div class="text-[#320c69] text-2xl font-extrabold tracking-wide">
+    <a [routerLink]="['/']">Sample App</a>
   </div>
-  
+
+  <div class="flex items-center space-x-2 bg-gray-50 px-4 py-2 rounded-full shadow-sm hover:shadow-md cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#001f3f]" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd"
+        d="M10 2a6 6 0 00-6 6c0 4.418 6 10 6 10s6-5.582 6-10a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"
+        clip-rule="evenodd" />
+    </svg>
+    <span class="text-[#320c69] font-medium">Set Location</span>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 ml-1" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div>
+
+
+  <div class="flex items-center gap-10">
+
+    <div class="relative">
+      <button (click)="toggleDropdown()"
+        class="flex items-center text-[#320c69] font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-[#320c69] rounded-md px-2 py-1 transition">
+        Buy Car
+        <svg [ngClass]="{'transform rotate-180': isDropdownOpen}" class="ml-1 w-4 h-4 transition-transform duration-300"
+          fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M5.23 7.21a.75.75 0 011.06.02L10 11.188l3.71-3.958a.75.75 0 111.08 1.04l-4.25 4.533a.75.75 0 01-1.08 0l-4.25-4.533a.75.75 0 01.02-1.06z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
+
+      <div *ngIf="isDropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl z-30 overflow-hidden">
+        <ul class="flex flex-col">
+          <li
+            *ngFor="let city of ['Delhi', 'Mumbai', 'Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Pune', 'Ahmedabad', 'Jaipur', 'Surat']">
+            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">{{ city }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-end text-[#320c69] font-semibold text-sm">
+      <span class="text-xs">Call us at</span>
+      <a href="tel:9568265862" class="hover:underline text-base font-bold">+91 95682 65862</a>
+    </div>
+
+  </div>
+
+</header>
