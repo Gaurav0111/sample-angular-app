@@ -1,50 +1,47 @@
 <section>
   <app-header></app-header>
 
-  <div class="bg-gray-100 min-h-screen p-8 pt-40">
-    <!-- <div class="w-full flex flex-row justify-between  ">
-      <div> -->
-        <nav class="text-sm text-gray-500 mb-4">
-          <a [routerLink]="['/']" class="hover:underline">Home</a> /
-          <span class="text-[#320c69] font-semibold">{{ type | titlecase }}</span>
-        </nav>
+  <div class="bg-gray-100 min-h-screen p-8 pt-20">
+    <nav class="text-sm text-gray-500">
+      <a [routerLink]="['/']" class="hover:underline">Home</a> /
+      <span class="text-[#320c69] font-semibold">{{ type | titlecase }}</span>
+    </nav>
 
-        <h1 class="text-3xl font-extrabold text-[#320c69] mb-6">
-          Explore {{ type | titlecase }}s for Sale
-        </h1>
+    <h1 class="text-3xl font-extrabold text-[#320c69] mb-6">
+      Explore {{ type | titlecase }}s for Sale
+    </h1>
 
-        <p class="text-[#320c69] max-w-3xl leading-relaxed mb-10">
-          Discover {{ vehicleList.length }} top-quality {{ type }}s available across India, starting from just ₹2,332.
-          Choose from a range of <strong>new</strong> and <strong>pre-owned {{ type }}s</strong>, all listed at fixed
-          prices.
-          Every listing is backed by our Full Circle Trust Score and a 100% refundable token policy.
-          Find your ideal {{ type }} today and make your dream a reality!
-        </p>
-      <!-- </div> -->
+    <p class="text-[#320c69] max-w-3xl leading-relaxed mb-10">
+      Discover {{ vehicleList.length }} top-quality {{ type }}s available across India, starting from just ₹2,332.
+      Choose from a range of <strong>new</strong> and <strong>pre-owned {{ type }}s</strong>, all listed at fixed
+      prices.
+      Every listing is backed by our Full Circle Trust Score and a 100% refundable token policy.
+      Find your ideal {{ type }} today and make your dream a reality!
+    </p>
 
-      <div class="flex justify-end mb-6">
-        <div class="flex items-end gap-4">
-          <label for="sortBy" class=" text-sm font-medium text-[#320c69]">Sort By:</label>
-          <select id="sortBy" (change)="onSortChange($event)"
-            class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="Default">Default</option>
-            <option value="priceAsc">Price: Low to High</option>
-            <option value="priceDesc">Price: High to Low</option>
-            <option value="kmsAsc">KMs Driven: Low to High</option>
-            <option value="kmsDesc">KMs Driven: High to Low</option>
-          </select>
-        </div>
-      <!-- </div> -->
+    <div class="flex justify-end mb-6">
+      <div class="flex items-end gap-4">
+        <label for="sortBy" class=" text-sm font-medium text-[#320c69]">Sort By:</label>
+        <select id="sortBy" (change)="onSortChange($event)"
+          class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="Default">Default</option>
+          <option value="priceAsc">Price: Low to High</option>
+          <option value="priceDesc">Price: High to Low</option>
+          <option value="kmsAsc">KMs Driven: Low to High</option>
+          <option value="kmsDesc">KMs Driven: High to Low</option>
+        </select>
+      </div>
     </div>
 
+
     <button class="md:hidden p-2 text-gray-700" (click)="isMenuOpen = !isMenuOpen">☰</button>
-    <div class="flex justify-center ">
+    <div class="flex flex-col md:flex-row gap-4 h-full md:h-[calc(100vh-6rem)]">
       <!-- Filter Section -->
-      <div class="m-1 flex flex-col mb-6 shadow-md shadow-black/10 px-4 py-3 rounded-lg w-64 h-screen overflow-y-auto"
+      <div class="order-1 md:order-none md:block w-full md:w-32 lg:w-64 overflow-y-auto"
         [ngClass]="{ 'hidden': !isMenuOpen, 'block': isMenuOpen, 'md:block': true }">
 
-        <div class="flex justify-between items-center  mb-4">
-          <p class="text-lg font-semibold flex items-center gap-2 text-[#320c69]">
+        <div class="flex justify-between items-center mb-4">
+          <p class="hidden lg:flex text-lg font-semibold flex items-center gap-2 text-[#320c69]">
             <img src="assets/icons/filter-icon.png" class="h-5 w-5" alt="Filter Icon" />
             Filters
           </p>
@@ -102,71 +99,74 @@
         </div>
 
       </div>
+      <!-- vehical Section -->
+      <div class="order-2 flex-1 overflow-y-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div *ngFor="let vehicle of vehicleList" (click)="openPopup(vehicle)"
+            class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4 cursor-pointer ">
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 h-full ">
-        <div *ngFor="let vehicle of vehicleList" (click)="openPopup(vehicle)"
-          class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4 cursor-pointer">
-
-          <div class="relative">
-            <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="w-full h-48 object-cover rounded-md" />
-          </div>
-
-          <div class="mt-4">
-            <h2 class="text-lg font-semibold text-gray-900 mb-2 truncate">
-              {{ vehicle.title }}
-            </h2>
-
-            <div class="text-xl font-bold text-[#320c69] mb-1">
-              ₹ {{ vehicle.price / 2 | number }}
+            <div class="relative">
+              <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="w-full h-48 object-cover rounded-md" />
             </div>
-            <div class="text-sm text-gray-500 mb-4">EMI: N/A</div>
 
-            <div class="flex flex-wrap text-gray-600 text-xs gap-4">
-              <div class="flex flex-col items-center gap-1">
-                <p class="font-medium">KMs Driven</p>
-                <p>{{ vehicle.kmsDriven | number }}</p>
+            <div class="mt-4">
+              <h2 class="text-lg font-semibold text-gray-900 mb-2 truncate">
+                {{ vehicle.title }}
+              </h2>
+
+              <div class="text-xl font-bold text-[#320c69] mb-1">
+                ₹ {{ vehicle.price / 2 | number }}
               </div>
-              <div class="flex flex-col items-center gap-1">
-                <p class="font-medium">Location</p>
-                <p>{{ vehicle.location }}</p>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <p class="font-medium">Fuel Type</p>
-                <p>{{ vehicle.fuelType }}</p>
-              </div>
-              <div class="flex flex-col items-center gap-1">
-                <p class="font-medium">Transmission</p>
-                <p>{{ vehicle.transmission }}</p>
+              <div class="text-sm text-gray-500 mb-4">EMI: N/A</div>
+
+              <div class="flex flex-wrap text-gray-600 text-xs gap-4">
+                <div class="flex flex-col items-center gap-1">
+                  <p class="font-medium">KMs Driven</p>
+                  <p>{{ vehicle.kmsDriven | number }}</p>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <p class="font-medium">Location</p>
+                  <p>{{ vehicle.location }}</p>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <p class="font-medium">Fuel Type</p>
+                  <p>{{ vehicle.fuelType }}</p>
+                </div>
+                <div class="flex flex-col items-center gap-1">
+                  <p class="font-medium">Transmission</p>
+                  <p>{{ vehicle.transmission }}</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" *ngIf="isPopupOpen"
-      (click)="closePopup()">
-      <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md relative" (click)="$event.stopPropagation()">
-        <img [src]="selectedVehicle?.imageUrl" alt="Vehicle Image" class="rounded-lg w-full h-48 object-cover mb-4" />
+      <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" *ngIf="isPopupOpen"
+        (click)="closePopup()">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md relative" (click)="$event.stopPropagation()">
+          <img [src]="selectedVehicle?.imageUrl" alt="Vehicle Image" class="rounded-lg w-full h-48 object-cover mb-4" />
 
-        <h2 class="text-2xl font-bold mb-2 text-gray-800">{{ selectedVehicle?.title }}</h2>
+          <h2 class="text-2xl font-bold mb-2 text-gray-800">{{ selectedVehicle?.title }}</h2>
 
-        <div class="space-y-2 text-gray-600">
-          <p><strong class="text-gray-800">Price:</strong> ₹ {{ selectedVehicle?.price | number }}</p>
-          <p><strong class="text-gray-800">Location:</strong> {{ selectedVehicle?.location }}</p>
-          <p><strong class="text-gray-800">Fuel Type:</strong> {{ selectedVehicle?.fuelType }}</p>
-          <p><strong class="text-gray-800">Transmission:</strong> {{ selectedVehicle?.transmission }}</p>
-          <p><strong class="text-gray-800">Kilometers Driven:</strong> {{ selectedVehicle?.kmsDriven | number }} km</p>
-        </div>
+          <div class="space-y-2 text-gray-600">
+            <p><strong class="text-gray-800">Price:</strong> ₹ {{ selectedVehicle?.price | number }}</p>
+            <p><strong class="text-gray-800">Location:</strong> {{ selectedVehicle?.location }}</p>
+            <p><strong class="text-gray-800">Fuel Type:</strong> {{ selectedVehicle?.fuelType }}</p>
+            <p><strong class="text-gray-800">Transmission:</strong> {{ selectedVehicle?.transmission }}</p>
+            <p><strong class="text-gray-800">Kilometers Driven:</strong> {{ selectedVehicle?.kmsDriven | number }} km
+            </p>
+          </div>
 
-        <div class="mt-6 flex gap-4">
-          <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition">
-            Buy Now
-          </button>
-          <button class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg transition"
-            (click)="closePopup()">
-            Close
-          </button>
+          <div class="mt-6 flex gap-4">
+            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition" (click)="goToDetailPage(selectedVehicle)" >
+              Buy Now
+            </button>
+            <button class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg transition"
+              (click)="closePopup()">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -8,5 +8,4 @@ export class AutomobileDetailsModel {
     kmsDriven?: number;
     brand?: string;
     year?: string;
-
 }

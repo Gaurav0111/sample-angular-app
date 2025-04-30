@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FooterComponent } from '../footer/footer.component';
@@ -14,13 +14,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class AutomobileDetailComponent implements OnInit {
   filters = {
-    // fuelType: '',
     fuelTypes: [] as string[],
     transmissions: [] as string[],
     locations: [] as string[],
     brands: [] as string[],
     years:[] as string[]
   };
+  // selectedVehicle: any;
   isMenuOpen = false;
   fuelTypes: string[] = [];
   transmissions: string[] = [];
@@ -115,7 +115,8 @@ export class AutomobileDetailComponent implements OnInit {
     ]
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private router: Router,private route: ActivatedRoute) {
+   }
 
   ngOnInit(): void {
     this.type = this.route.snapshot.paramMap.get('type') || '';
@@ -184,6 +185,11 @@ export class AutomobileDetailComponent implements OnInit {
       this.filters.years = this.filters.years.filter(b => b !== value);
     }
     this.applyFilters();
+  }
+  goToDetailPage(vehicle: any) {
+    this.router.navigate(['/vehical-detail'], {
+      state: { vehicle }
+    });
   }
 
   onSortChange(event: Event) {
