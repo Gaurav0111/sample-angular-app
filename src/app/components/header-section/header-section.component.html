@@ -15,16 +15,27 @@
         Enter your car registration number
       </label>
       <div class="flex flex-col md:flex-row gap-4">
-        <input type="text" id="registration" [(ngModel)]="registrationNumber" placeholder="e.g. DL34 AC 4564"
-          class="flex-1 border border-gray-300 rounded-xl p-4 text-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition" />
-
+        <div class="flex items-center border-4 border-gray-400 rounded-lg overflow-hidden w-full max-w-md bg-white shadow-inner">
+        
+          <div class="flex flex-col items-center justify-center bg-blue-100 px-2 py-1 text-xs font-bold text-blue-700 border-r border-gray-400">
+            <span class="text-lg">🔘</span>
+            <span>IND</span>
+          </div>
+        
+          <input type="text" id="registration" [(ngModel)]="registrationNumber"
+            placeholder="UK 04 K 0636"
+            class="flex-1 p-4 text-xl font-bold tracking-widest uppercase text-center text-gray-700 focus:outline-none"
+            maxlength="13" />
+        </div>
+      
         <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg"
-          [disabled]="!registrationNumber" [ngClass]="{'opacity-50 cursor-not-allowed': !registrationNumber}" (click)="registrationSubmit()" >
+          [disabled]="!registrationNumber" [ngClass]="{'opacity-50 cursor-not-allowed': !registrationNumber}"
+          (click)="registrationSubmit()">
           Get Your Car Price
         </button>
       </div>
     </div>
-    
+
     <div class="text-center mb-10">
       <p class="text-gray-700 font-semibold text-lg mb-6">
         Brands we deal with

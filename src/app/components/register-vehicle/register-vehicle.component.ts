@@ -23,14 +23,14 @@ export class RegisterVehicleComponent {
   transmissions = ['Automatic', 'Manual'];
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private http: HttpClient,
     private router: Router
   ) {
     const navigation = this.router.getCurrentNavigation();
     this.registrationNumber = navigation?.extras?.state?.['Number'];
     const currentYear = new Date().getFullYear();
-    for (let y = currentYear; y >= currentYear-25; y--) {
+    for (let y = currentYear; y >= currentYear - 25; y--) {
       this.manufacturingYears.push(y);
     }
     this.http.get<any[]>('assets/cities.json').subscribe(data => {
@@ -40,7 +40,7 @@ export class RegisterVehicleComponent {
         .sort();
     });
     this.vehicleForm = this.fb.group({
-      registrationNumber: [this.registrationNumber],
+      registrationNumber: [this.registrationNumber, [Validators.required,Validators.pattern(/^[A-Z]{2} ?\d{1,3} ?[A-Z]{1,3} ?\d{4}$/i),],],
       locations: ['', Validators.required],
       brand: ['', Validators.required],
       fuelType: ['', Validators.required],
@@ -67,16 +67,16 @@ export class RegisterVehicleComponent {
 
   isStep1Valid() {
     return this.vehicleForm.get('locations')?.valid &&
-           this.vehicleForm.get('brand')?.valid &&
-           this.vehicleForm.get('manufacturingYear')?.valid &&
-           this.vehicleForm.get('fuelType')?.valid;
+      this.vehicleForm.get('brand')?.valid &&
+      this.vehicleForm.get('manufacturingYear')?.valid &&
+      this.vehicleForm.get('fuelType')?.valid;
   }
 
   isStep2Valid() {
     return this.vehicleForm.get('carModel')?.valid &&
-           this.vehicleForm.get('kilometersDriven')?.valid &&
-           this.vehicleForm.get('planningToSell')?.valid &&
-           this.vehicleForm.get('transmission')?.valid;
+      this.vehicleForm.get('kilometersDriven')?.valid &&
+      this.vehicleForm.get('planningToSell')?.valid &&
+      this.vehicleForm.get('transmission')?.valid;
   }
 
   onSubmit() {
