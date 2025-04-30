@@ -16,7 +16,7 @@
                 <div>
                     <label class="block font-medium text-gray-700">Location</label>
                     <select formControlName="locations" class="w-full p-3 border rounded">
-                        <option value="">Select Year</option>
+                        <option value="">Select Location</option>
                         <option *ngFor="let location of availableLocations" [value]="location">{{ location }}</option>
                     </select>
                     <div *ngIf="vehicleForm.get('locations')?.touched && vehicleForm.get('locations')?.invalid"
