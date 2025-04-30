@@ -1,0 +1,162 @@
+<app-header></app-header>
+
+<div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-center text-gray-800">Register Your Vehicle</h2>
+
+        <!-- Step 1 -->
+        <form *ngIf="currentStep === 1" [formGroup]="vehicleForm" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label class="block font-medium text-gray-700">Registration Number</label>
+                    <input type="text" formControlName="registrationNumber"
+                        class="w-full p-3 border rounded bg-gray-100" />
+                </div>
+
+                <div>
+                    <label class="block font-medium text-gray-700">Location</label>
+                    <select formControlName="locations" class="w-full p-3 border rounded">
+                        <option value="">Select Year</option>
+                        <option *ngFor="let location of availableLocations" [value]="location">{{ location }}</option>
+                    </select>
+                    <div *ngIf="vehicleForm.get('locations')?.touched && vehicleForm.get('locations')?.invalid"
+                        class="text-red-600 text-sm">
+                        Location is required.
+                    </div>
+                </div>
+        
+                <div>
+                    <label class="block font-medium text-gray-700">Brand</label>
+                    <input type="text" formControlName="brand" class="w-full p-3 border rounded" />
+                    <div *ngIf="vehicleForm.get('brand')?.touched && vehicleForm.get('brand')?.invalid"
+                        class="text-red-600 text-sm">
+                        Brand is required.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-gray-700">Manufacturing Year</label>
+                    <select formControlName="manufacturingYear" class="w-full p-3 border rounded">
+                        <option value="">Select Year</option>
+                        <option *ngFor="let year of manufacturingYears" [value]="year">{{ year }}</option>
+                    </select>
+                    <div *ngIf="vehicleForm.get('manufacturingYear')?.touched && vehicleForm.get('manufacturingYear')?.invalid"
+                        class="text-red-600 text-sm" >
+                        Manufacturing Year is required.
+                    </div>
+                </div>
+
+
+                <div>
+                    <label class="block font-medium text-gray-700">Fuel Type</label>
+                    <select formControlName="fuelType" class="w-full p-3 border rounded">
+                        <option value="">Select</option>
+                        <option *ngFor="let fuel of fuelTypes" [value]="fuel">{{ fuel }}</option>
+                    </select>
+                    <div *ngIf="vehicleForm.get('fuelType')?.touched && vehicleForm.get('fuelType')?.invalid"
+                        class="text-red-600 text-sm">
+                        Fuel Type is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="button" [disabled]="!isStep1Valid()" (click)="nextStep()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded disabled:opacity-50">
+                    Next
+                </button>
+            </div>
+        </form>
+
+        <!-- Step 2 -->
+        <form *ngIf="currentStep === 2" [formGroup]="vehicleForm" class="space-y-4">
+            <button type="button" (click)="prevStep()" class="text-blue-600 mb-2">&larr; Back</button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+                    <label class="block font-medium text-gray-700">Car Model</label>
+                    <input type="text" formControlName="carModel" class="w-full p-3 border rounded" />
+                    <div *ngIf="vehicleForm.get('carModel')?.touched && vehicleForm.get('carModel')?.invalid"
+                        class="text-red-600 text-sm">
+                        Car Model is required.
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-gray-700">Kilometers Driven</label>
+                    <input type="text" formControlName="kilometersDriven" class="w-full p-3 border rounded" />
+                    <div *ngIf="vehicleForm.get('kilometersDriven')?.touched && vehicleForm.get('kilometersDriven')?.invalid"
+                        class="text-red-600 text-sm">
+                        <div *ngIf="vehicleForm.get('kilometersDriven')?.errors?.['required']">Kilometers Driven is
+                            required.</div>
+                        <div *ngIf="vehicleForm.get('kilometersDriven')?.errors?.['pattern']">Must be a number.</div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-medium text-gray-700 mb-2">When are you planning to sell your car?</label>
+                    <select formControlName="planningToSell" class="w-full p-3 border rounded text-gray-700">
+                        <option value="">Select an option</option>
+                        <option value="Within this week">Within this week</option>
+                        <option value="By next week">By next week</option>
+                        <option value="After 2 weeks">After 2 weeks</option>
+                        <option value="Just checking price">Just checking price</option>
+                    </select>
+                    <div *ngIf="vehicleForm.get('planningToSell')?.touched && vehicleForm.get('planningToSell')?.invalid"
+                        class="text-red-600 text-sm mt-1">
+                        This field is required.
+                    </div>
+                </div>
+
+
+                <div class="md:col-span-2">
+                    <label class="block font-medium text-gray-700">Transmission</label>
+                    <div class="flex gap-6 mt-2">
+                        <label *ngFor="let t of transmissions" class="flex items-center gap-2">
+                            <input type="radio" [value]="t" formControlName="transmission" />
+                            {{ t }}
+                        </label>
+                    </div>
+                    <div *ngIf="vehicleForm.get('transmission')?.touched && vehicleForm.get('transmission')?.invalid"
+                        class="text-red-600 text-sm mt-1">
+                        Transmission is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <button type="button" (click)="prevStep()"
+                    class="bg-gray-300 hover:bg-gray-400 text-black py-2 px-6 rounded">
+                    Back
+                </button>
+                <button type="button" [disabled]="!isStep2Valid()" (click)="nextStep()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded disabled:opacity-50">
+                    Next
+                </button>
+            </div>
+        </form>
+
+        <!-- Step 3 -->
+        <form *ngIf="currentStep === 3" [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="space-y-4">
+            <button type="button" (click)="prevStep()" class="text-blue-600 mb-2">&larr; Back</button>
+
+            <label class="block font-medium text-gray-700">Phone Number</label>
+            <input type="text" formControlName="phoneNumber" class="w-full p-3 border rounded"
+                placeholder="Enter 10-digit phone number" />
+            <div *ngIf="vehicleForm.get('phoneNumber')?.touched && vehicleForm.get('phoneNumber')?.invalid"
+                class="text-red-600 text-sm">
+                <div *ngIf="vehicleForm.get('phoneNumber')?.errors?.['required']">Phone number is required.</div>
+                <div *ngIf="vehicleForm.get('phoneNumber')?.errors?.['pattern']">Phone number must be exactly 10 digits.
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="vehicleForm.invalid"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded disabled:opacity-50">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
+
+<app-footer></app-footer>
