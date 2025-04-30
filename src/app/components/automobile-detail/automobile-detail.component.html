@@ -2,45 +2,50 @@
   <app-header></app-header>
 
   <div class="bg-gray-100 min-h-screen p-8 pt-40">
-    <nav class="text-sm text-gray-500 mb-4">
-      <a [routerLink]="['/']" class="hover:underline">Home</a> /
-      <span class="text-gray-700 font-semibold">{{ type | titlecase }}</span>
-    </nav>
+    <!-- <div class="w-full flex flex-row justify-between  ">
+      <div> -->
+        <nav class="text-sm text-gray-500 mb-4">
+          <a [routerLink]="['/']" class="hover:underline">Home</a> /
+          <span class="text-[#320c69] font-semibold">{{ type | titlecase }}</span>
+        </nav>
 
-    <h1 class="text-3xl font-extrabold text-[#320c69] mb-6">
-      Explore {{ type | titlecase }}s for Sale
-    </h1>
+        <h1 class="text-3xl font-extrabold text-[#320c69] mb-6">
+          Explore {{ type | titlecase }}s for Sale
+        </h1>
 
-    <p class="text-[#320c69] max-w-3xl leading-relaxed mb-10">
-      Discover {{ vehicleList.length }} top-quality {{ type }}s available across India, starting from just ₹2,332.
-      Choose from a range of <strong>new</strong> and <strong>pre-owned {{ type }}s</strong>, all listed at fixed
-      prices.
-      Every listing is backed by our Full Circle Trust Score and a 100% refundable token policy.
-      Find your ideal {{ type }} today and make your dream a reality!
-    </p>
+        <p class="text-[#320c69] max-w-3xl leading-relaxed mb-10">
+          Discover {{ vehicleList.length }} top-quality {{ type }}s available across India, starting from just ₹2,332.
+          Choose from a range of <strong>new</strong> and <strong>pre-owned {{ type }}s</strong>, all listed at fixed
+          prices.
+          Every listing is backed by our Full Circle Trust Score and a 100% refundable token policy.
+          Find your ideal {{ type }} today and make your dream a reality!
+        </p>
+      <!-- </div> -->
 
-    <div class="flex justify-end mb-6">
-      <div class="flex items-center gap-4">
-        <label for="sortBy" class="text-sm font-medium text-gray-700">Sort By:</label>
-        <select id="sortBy" (change)="onSortChange($event)"
-          class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="Default">Default</option>
-          <option value="priceAsc">Price: Low to High</option>
-          <option value="priceDesc">Price: High to Low</option>
-          <option value="kmsAsc">KMs Driven: Low to High</option>
-          <option value="kmsDesc">KMs Driven: High to Low</option>
-        </select>
-      </div>
+      <div class="flex justify-end mb-6">
+        <div class="flex items-end gap-4">
+          <label for="sortBy" class=" text-sm font-medium text-[#320c69]">Sort By:</label>
+          <select id="sortBy" (change)="onSortChange($event)"
+            class="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="Default">Default</option>
+            <option value="priceAsc">Price: Low to High</option>
+            <option value="priceDesc">Price: High to Low</option>
+            <option value="kmsAsc">KMs Driven: Low to High</option>
+            <option value="kmsDesc">KMs Driven: High to Low</option>
+          </select>
+        </div>
+      <!-- </div> -->
     </div>
 
     <button class="md:hidden p-2 text-gray-700" (click)="isMenuOpen = !isMenuOpen">☰</button>
     <div class="flex justify-center ">
       <!-- Filter Section -->
-      <div class="m-1 flex flex-col gap-4 mb-6 shadow-md shadow-black/10 px-4 py-3  rounded-lg bg-white w-64 "
+      <div class="m-1 flex flex-col mb-6 shadow-md shadow-black/10 px-4 py-3 rounded-lg w-64 h-screen overflow-y-auto"
         [ngClass]="{ 'hidden': !isMenuOpen, 'block': isMenuOpen, 'md:block': true }">
-        <div class="flex justify-between items-center">
-          <p class="text-lg font-semibold flex items-center gap-2">
-            <img src="assets/icons/filter-icon.png" class="h-5 w-5 text-gray-700" alt="Filter Icon" />
+
+        <div class="flex justify-between items-center  mb-4">
+          <p class="text-lg font-semibold flex items-center gap-2 text-[#320c69]">
+            <img src="assets/icons/filter-icon.png" class="h-5 w-5" alt="Filter Icon" />
             Filters
           </p>
 
@@ -51,42 +56,54 @@
           </button>
         </div>
 
-        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
-          <label class="block text-sm font-medium text-gray-700">Fuel Type</label>
-          <select (change)="applyFilters()" [(ngModel)]="filters.fuelType" class="border rounded px-3 py-2">
-            <option value="">All</option>
-            <option *ngFor="let fuel of fuelTypes" [value]="fuel">{{ fuel }}</option>
-          </select>
+        <div *ngIf="fuelTypes.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
+          <label class="block text-sm font-medium text-[#320c69] mb-2">Fuel Type</label>
+          <div *ngFor="let fuel of fuelTypes" class="flex items-center mb-1">
+            <input type="checkbox" [value]="fuel" (change)="onFuelTypeChange($event)"
+              [checked]="filters.fuelTypes.includes(fuel)" class="mr-2" />
+            <label>{{ fuel }}</label>
+          </div>
         </div>
 
-        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
-          <label class="block text-sm font-medium text-gray-700">Transmission</label>
-          <select (change)="applyFilters()" [(ngModel)]="filters.transmission" class="border rounded px-3 py-2">
-            <option value="">All</option>
-            <option *ngFor="let t of transmissions" [value]="t">{{ t }}</option>
-          </select>
+        <div *ngIf="transmissions.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
+          <label class="block text-sm font-medium text-[#320c69] mb-2">Transmission</label>
+          <div *ngFor="let t of transmissions" class="flex items-center mb-1">
+            <input type="checkbox" [value]="t" (change)="onTransmissionChange($event)"
+              [checked]="filters.transmissions.includes(t)" class="mr-2" />
+            <label>{{ t }}</label>
+          </div>
         </div>
 
-        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
-          <label class="block text-sm font-medium text-gray-700">Brand</label>
-          <select (change)="applyFilters()" [(ngModel)]="filters.brand" class="border rounded px-3 py-2">
-            <option value="">All</option>
-            <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
-          </select>
+        <div *ngIf="brands.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
+          <label class="block text-sm font-medium text-[#320c69] mb-2">Brand</label>
+          <div *ngFor="let b of brands" class="flex items-center mb-1">
+            <input type="checkbox" [value]="b" (change)="onBrandChange($event)" [checked]="filters.brands.includes(b)"
+              class="mr-2" />
+            <label>{{ b }}</label>
+          </div>
         </div>
 
-        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
-          <label class="block text-sm font-medium text-gray-700">Location</label>
-          <select (change)="applyFilters()" [(ngModel)]="filters.location" class="border rounded px-3 py-2"
-            placeholder="Enter location">
-            <option value="">All</option>
-            <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
-          </select>
+        <div *ngIf="locations.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
+          <label class="block text-sm font-medium text-[#320c69] mb-2">Location</label>
+          <div *ngFor="let loc of locations" class="flex items-center mb-1">
+            <input type="checkbox" [value]="loc" (change)="onLocationChange($event)"
+              [checked]="filters.locations.includes(loc)" class="mr-2" />
+            <label>{{ loc }}</label>
+          </div>
         </div>
+
+        <div *ngIf="years.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
+          <label class="block text-sm font-medium text-[#320c69] mb-2">Year</label>
+          <div *ngFor="let y of years" class="flex items-center mb-1">
+            <input type="checkbox" [value]="y" (change)="onYearChange($event)" [checked]="filters.years.includes(y)"
+              class="mr-2" />
+            <label>{{ y }}</label>
+          </div>
+        </div>
+
       </div>
 
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 h-full ">
         <div *ngFor="let vehicle of vehicleList" (click)="openPopup(vehicle)"
           class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4 cursor-pointer">
 
@@ -152,9 +169,6 @@
           </button>
         </div>
       </div>
-    </div>
-    <div class="py-12 font-bold">
-      Yay! You have seen it all
     </div>
   </div>
 

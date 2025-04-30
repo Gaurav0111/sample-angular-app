@@ -7,4 +7,6 @@ export class AutomobileDetailsModel {
     imageUrl?: string;
     kmsDriven?: number;
     brand?: string;
+    year?: string;
+
 }
