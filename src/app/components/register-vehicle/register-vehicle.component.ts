@@ -33,13 +33,15 @@ export class RegisterVehicleComponent {
     for (let y = currentYear; y >= currentYear - 25; y--) {
       this.manufacturingYears.push(y);
     }
-    this.http.get<any[]>('assets/cities.json').subscribe(data => {
-    // this.http.get<any[]>('https://drive.google.com/file/d/13RPYMGx95yIJrqG_Dbvf0vMiHZHibZ5Z/view').subscribe(data => {
-      this.availableLocations = data
-        .filter(city => city.country_code === 'IN')
-        .map(city => city.name)
-        .sort();
-    });
+    // this.http.get<any[]>('assets/cities.json').subscribe(data => {
+      this.http.get<any[]>('https://raw.githubusercontent.com/Gaurav0111/sample-angular-app/main/src/assets/cities.json').subscribe(data => {
+        this.availableLocations = data
+          .filter(city => city.country_code === 'IN')
+          .map(city => city.name)
+          .sort();
+      });
+      
+
     this.vehicleForm = this.fb.group({
       registrationNumber: [this.registrationNumber, [Validators.required,Validators.pattern(/^[A-Z]{2} ?\d{1,3} ?[A-Z]{1,3} ?\d{4}$/i),],],
       locations: ['', Validators.required],
