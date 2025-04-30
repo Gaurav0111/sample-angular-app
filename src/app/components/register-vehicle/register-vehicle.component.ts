@@ -34,6 +34,7 @@ export class RegisterVehicleComponent {
       this.manufacturingYears.push(y);
     }
     this.http.get<any[]>('assets/cities.json').subscribe(data => {
+    // this.http.get<any[]>('https://drive.google.com/file/d/13RPYMGx95yIJrqG_Dbvf0vMiHZHibZ5Z/view').subscribe(data => {
       this.availableLocations = data
         .filter(city => city.country_code === 'IN')
         .map(city => city.name)

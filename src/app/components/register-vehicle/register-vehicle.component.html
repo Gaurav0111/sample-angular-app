@@ -13,9 +13,9 @@
                            class="w-full p-3 border rounded bg-gray-100" />
                   
                     <!-- Error messages -->
-                    <div *ngIf="vehicleForm.get('registrationNumber')?.touched && vehicleForm.get('registrationNumber')?.invalid"
+                    <div *ngIf="vehicleForm.get('registrationNumber')?.invalid"
                          class="text-red-600 text-sm mt-2">
-                      <div *ngIf="vehicleForm.get('registrationNumber')?.errors?.['required']">
+                      <div *ngIf="vehicleForm.get('registrationNumber')?.errors?.['required'] && vehicleForm.get('registrationNumber')?.touched ">
                         Registration number is required.
                       </div>
                       <div *ngIf="vehicleForm.get('registrationNumber')?.errors?.['pattern']">
