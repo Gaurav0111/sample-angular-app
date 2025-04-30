@@ -2,16 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import { AutomobileDetailsModel } from '../../Model/automobileDetailsModel';
 import { FooterComponent } from '../footer/footer.component';
+import { AutomobileDetailsModel } from '../../Model/automobileDetailsModel.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-automobile-detail',
-  imports: [HeaderComponent, RouterLink, CommonModule, FooterComponent],
+  imports: [HeaderComponent, RouterLink, CommonModule, FooterComponent, FormsModule],
   templateUrl: './automobile-detail.component.html',
   styleUrl: './automobile-detail.component.scss'
 })
 export class AutomobileDetailComponent implements OnInit {
+  filters = {
+    fuelType: '',
+    transmission: '',
+    location: '',
+    brand: ''
+  };
+  isMenuOpen = false;
+  fuelTypes: string[] = [];
+  transmissions: string[] = [];
+  locations: string[] = [];
+  brands: string[] = [];
   type: string = '';
   vehicleList: any[] = [];
   originalVehicleList: any[] = [];
@@ -30,7 +42,7 @@ export class AutomobileDetailComponent implements OnInit {
       { title: '2023 Tata Nexon EV', brand: 'Tata', price: 1600000, location: 'Delhi', fuelType: 'Electric', transmission: 'Automatic', imageUrl: 'https://motoringworld.in/wp-content/uploads/2022/11/Tata-Nexon-EV-Max-Trail-web5.jpg', kmsDriven: 500 },
       { title: '2022 Maruti Suzuki Swift', brand: 'Maruti', price: 750000, location: 'Mumbai', fuelType: 'Petrol', transmission: 'Manual', imageUrl: 'https://img.autocarindia.com/Galleries/20180119094334_New-Maruti-Swift-rear-thre.jpg?w=736&h=488&q=75&c=1', kmsDriven: 3000 },
       { title: '2021 Hyundai i20 Asta', brand: 'Hyundai', price: 900000, location: 'Bangalore', fuelType: 'Petrol', transmission: 'Automatic', imageUrl: 'https://www.carandbike.com/_next/image?url=https%3A%2F%2Fmedia.mahindrafirstchoice.com%2Flive_web_images%2Fusedcarsimg%2Fmfc%2F1551%2F622756%2Fcover_image-20241205161329.jpg&w=3840&q=75', kmsDriven: 6000 },
-      { title: '2022 Kia Seltos HTX', brand: 'Kia', price: 1450000, location: 'Chennai', fuelType: 'Diesel', transmission: 'Manual', imageUrl: 'https://imgd.aeplcdn.com/300x225/vimages/202504/3921641_9564_1_1744565844135.jpg?q=80', kmsDriven: 4500 },
+      { title: '2022 Kia Seltos HTX', brand: 'Kia', price: 1450000, location: 'Dehradun', fuelType: 'Diesel', transmission: 'Manual', imageUrl: 'https://imgd.aeplcdn.com/300x225/vimages/202504/3921641_9564_1_1744565844135.jpg?q=80', kmsDriven: 4500 },
       { title: '2020 Honda City ZX', brand: 'Honda', price: 1100000, location: 'Pune', fuelType: 'Petrol', transmission: 'CVT', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7vR7bXRfbJS_Cqa7VpolRpYN1dLJOOdhSrA&s', kmsDriven: 8000 },
       { title: '2021 Mahindra Thar LX', brand: 'Mahindra', price: 1550000, location: 'Hyderabad', fuelType: 'Diesel', transmission: 'Manual', imageUrl: 'https://media.assettype.com/evoindia/2024-08-16/fwnmw008/Roxx-1.jpg', kmsDriven: 5500 }
     ],
@@ -102,18 +114,26 @@ export class AutomobileDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
 
-
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.type = params['type'];
-      this.vehicleList = this.allVehicles[this.type as keyof typeof this.allVehicles] || [];
-      this.originalVehicleList = this.vehicleList.slice();
+    this.type = this.route.snapshot.paramMap.get('type') || '';
+    this.vehicleList = this.allVehicles[this.type as keyof typeof this.allVehicles] || [];
+    this.originalVehicleList = [...this.vehicleList];
+    this.fuelTypes = [...new Set(this.vehicleList.map(v => v.fuelType))];
+    this.transmissions = [...new Set(this.vehicleList.map(v => v.transmission))];
+    this.locations = [...new Set(this.vehicleList.map(v => v.location))];
+    this.brands = [...new Set(this.vehicleList.map(v => v.brand))];
+  }
+  applyFilters() {
+    this.vehicleList = this.originalVehicleList.filter(vehicle => {
+      return (!this.filters.fuelType || vehicle.fuelType === this.filters.fuelType) &&
+        (!this.filters.transmission || vehicle.transmission === this.filters.transmission) &&
+        (!this.filters.brand || vehicle.brand === this.filters.brand) &&
+        (!this.filters.location || vehicle.location.toLowerCase().includes(this.filters.location.toLowerCase()));
     });
   }
-
-  loadVehicles() {
-    const key = this.type.toLowerCase() as 'car' | 'bike';
-    this.vehicleList = this.allVehicles[key] || [];
+  resetFilters() {
+    this.filters = { fuelType: '', transmission: '', location: '', brand:'' };
+    this.vehicleList = [...this.originalVehicleList];
   }
 
   onSortChange(event: Event) {
@@ -130,6 +150,7 @@ export class AutomobileDetailComponent implements OnInit {
       this.vehicleList.sort((a, b) => b.kmsDriven - a.kmsDriven);
     }
   }
+
   openPopup(vehicle: AutomobileDetailsModel) {
     this.selectedVehicle = vehicle;
     this.isPopupOpen = true;

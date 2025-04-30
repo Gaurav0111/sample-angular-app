@@ -33,40 +33,94 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <div *ngFor="let vehicle of vehicleList" (click)="openPopup(vehicle)"
-        class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4 cursor-pointer">
+    <button class="md:hidden p-2 text-gray-700" (click)="isMenuOpen = !isMenuOpen">☰</button>
+    <div class="flex justify-center ">
+      <!-- Filter Section -->
+      <div class="m-1 flex flex-col gap-4 mb-6 shadow-md shadow-black/10 px-4 py-3  rounded-lg bg-white w-64 "
+        [ngClass]="{ 'hidden': !isMenuOpen, 'block': isMenuOpen, 'md:block': true }">
+        <div class="flex justify-between items-center">
+          <p class="text-lg font-semibold flex items-center gap-2">
+            <img src="assets/icons/filter-icon.png" class="h-5 w-5 text-gray-700" alt="Filter Icon" />
+            Filters
+          </p>
 
-        <div class="relative">
-          <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="w-full h-48 object-cover rounded-md" />
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium py-1 px-1 rounded transition duration-200"
+            (click)="resetFilters()">
+            Reset Filter
+          </button>
         </div>
 
-        <div class="mt-4">
-          <h2 class="text-lg font-semibold text-gray-900 mb-2 truncate">
-            {{ vehicle.title }}
-          </h2>
+        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
+          <label class="block text-sm font-medium text-gray-700">Fuel Type</label>
+          <select (change)="applyFilters()" [(ngModel)]="filters.fuelType" class="border rounded px-3 py-2">
+            <option value="">All</option>
+            <option *ngFor="let fuel of fuelTypes" [value]="fuel">{{ fuel }}</option>
+          </select>
+        </div>
 
-          <div class="text-xl font-bold text-[#320c69] mb-1">
-            ₹ {{ vehicle.price / 2 | number }}
+        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
+          <label class="block text-sm font-medium text-gray-700">Transmission</label>
+          <select (change)="applyFilters()" [(ngModel)]="filters.transmission" class="border rounded px-3 py-2">
+            <option value="">All</option>
+            <option *ngFor="let t of transmissions" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+
+        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
+          <label class="block text-sm font-medium text-gray-700">Brand</label>
+          <select (change)="applyFilters()" [(ngModel)]="filters.brand" class="border rounded px-3 py-2">
+            <option value="">All</option>
+            <option *ngFor="let b of brands" [value]="b">{{ b }}</option>
+          </select>
+        </div>
+
+        <div class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-t-none rounded-b-lg">
+          <label class="block text-sm font-medium text-gray-700">Location</label>
+          <select (change)="applyFilters()" [(ngModel)]="filters.location" class="border rounded px-3 py-2"
+            placeholder="Enter location">
+            <option value="">All</option>
+            <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div *ngFor="let vehicle of vehicleList" (click)="openPopup(vehicle)"
+          class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4 cursor-pointer">
+
+          <div class="relative">
+            <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="w-full h-48 object-cover rounded-md" />
           </div>
-          <div class="text-sm text-gray-500 mb-4">EMI: N/A</div>
 
-          <div class="flex flex-wrap text-gray-600 text-xs gap-4">
-            <div class="flex flex-col items-center gap-1">
-              <p class="font-medium">KMs Driven</p>
-              <p>{{ vehicle.kmsDriven | number }}</p>
+          <div class="mt-4">
+            <h2 class="text-lg font-semibold text-gray-900 mb-2 truncate">
+              {{ vehicle.title }}
+            </h2>
+
+            <div class="text-xl font-bold text-[#320c69] mb-1">
+              ₹ {{ vehicle.price / 2 | number }}
             </div>
-            <div class="flex flex-col items-center gap-1">
-              <p class="font-medium">Location</p>
-              <p>{{ vehicle.location }}</p>
-            </div>
-            <div class="flex flex-col items-center gap-1">
-              <p class="font-medium">Fuel Type</p>
-              <p>{{ vehicle.fuelType }}</p>
-            </div>
-            <div class="flex flex-col items-center gap-1">
-              <p class="font-medium">Transmission</p>
-              <p>{{ vehicle.transmission }}</p>
+            <div class="text-sm text-gray-500 mb-4">EMI: N/A</div>
+
+            <div class="flex flex-wrap text-gray-600 text-xs gap-4">
+              <div class="flex flex-col items-center gap-1">
+                <p class="font-medium">KMs Driven</p>
+                <p>{{ vehicle.kmsDriven | number }}</p>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <p class="font-medium">Location</p>
+                <p>{{ vehicle.location }}</p>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <p class="font-medium">Fuel Type</p>
+                <p>{{ vehicle.fuelType }}</p>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <p class="font-medium">Transmission</p>
+                <p>{{ vehicle.transmission }}</p>
+              </div>
             </div>
           </div>
         </div>
