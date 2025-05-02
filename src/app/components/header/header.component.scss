@@ -1,4 +1,9 @@
-.custom{
-    min-width: 100%;
-    max-width: 60rem;
-}
+header.scrolled {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional */
+  }
+  
+  header:not(.scrolled) {
+    background: linear-gradient(to right, #1e40af, #3b82f6, #ffffff); /* Ensure gradient only on non-scrolled state */
+  }
+  

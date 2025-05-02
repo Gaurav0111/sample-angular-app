@@ -1,16 +1,17 @@
-<header class="fixed top-0 left-0 w-full bg-white shadow-sm z-50 h-16">
-  <div class="flex justify-between px-10  py-3">
+<header [ngClass]="{'scrolled': isScrolled}" class="fixed top-0 left-0 w-full bg-gradient-to-br from-blue-700 via-blue-500 to-white shadow-md z-50 h-16 transition-all">
+  <div class="flex justify-between px-6 py-4 items-center">
 
+    <!-- Logo and Title -->
     <div class="flex items-center space-x-2">
       <img src="assets/logo/company-logo.png" alt="Logo" class="h-6 w-6 sm:h-8 sm:w-8">
-      <div class="text-[#320c69] text-sm sm:text-xl font-extrabold tracking-wide">
+      <div class="text-white text-sm sm:text-xl font-extrabold tracking-wide">
         <a [routerLink]="['/']">AutoExchange</a>
       </div>
     </div>
 
+    <!-- Navigation Links -->
     <div class="hidden sm:flex items-center gap-6">
-      <div
-        class="flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full shadow-sm hover:shadow-md cursor-pointer">
+      <div class="flex items-center space-x-2 bg-gray-50 px-3 py-1 rounded-full shadow-sm hover:shadow-md cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#001f3f]" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd"
             d="M10 2a6 6 0 00-6 6c0 4.418 6 10 6 10s6-5.582 6-10a6 6 0 00-6-6zm0 8a2 2 0 110-4 2 2 0 010 4z"
@@ -23,9 +24,9 @@
         </svg>
       </div>
 
-      <!-- Buy Car -->
+      <!-- Buy Car Dropdown -->
       <div class="relative group">
-        <div class="flex items-center text-[#320c69] text-sm font-semibold hover:underline px-2 py-1 cursor-pointer">
+        <div class="flex items-center text-white text-sm font-semibold hover:underline px-2 py-1 cursor-pointer">
           Buy Car
           <svg class="ml-1 h-5 transition-transform duration-300 group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd"
@@ -37,7 +38,7 @@
         <div
           class="absolute right-0 mt-2 w-screen max-w-[90vw] sm:max-w-[200px] md:max-w-[400px] lg:max-w-[700px] bg-white rounded-md shadow-xl z-30 opacity-0 invisible group-hover:visible group-hover:opacity-100 transition-all duration-300 border-t border-gray-200 px-6 py-5 overflow-auto">
           
-          <h3 class="text-base md:text-lg font-semibold mb-4">Buy car</h3>
+          <h3 class="text-base md:text-lg font-semibold mb-4">Buy Car</h3>
       
           <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <ng-container *ngFor="let state of stateNames">
@@ -50,10 +51,9 @@
         </div>
       </div>
 
-
-
+      <!-- Sell Car -->
       <div class="relative group">
-        <div class="flex items-center text-[#320c69] text-sm font-semibold hover:underline px-2 py-1 cursor-pointer"
+        <div class="flex items-center text-white text-sm font-semibold hover:underline px-2 py-1 cursor-pointer"
           (click)="registrationSubmit()">
           Sell Car
         </div>
@@ -61,7 +61,9 @@
 
     </div>
 
+    <!-- Contact and Profile -->
     <div class="flex items-center space-x-4">
+      <!-- Call Us -->
       <div class="relative" (click)="showCall()">
         <img src="assets/icons/callUs-icon.png"
           class="border-solid rounded-full cursor-pointer h-10 w-10 text-[#320c69]" alt="Call Icon">
@@ -72,6 +74,7 @@
         </div>
       </div>
 
+      <!-- Profile -->
       <div class="relative border-2 border-solid rounded-full p-1 border-indigo-800" (click)="showProfile()">
         <img src="assets/logo/profile-logo.png" class="w-7 h-7 border-solid rounded-full cursor-pointer "
           alt="Profile Icon">
