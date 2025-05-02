@@ -11,7 +11,7 @@
       Explore {{ type | titlecase }}s for Sale
     </h1>
 
-    <p class="text-[#320c69] max-w-3xl leading-relaxed mb-10">
+    <p class="text-[#320c69] max-w-7xl leading-relaxed mb-10">
       Discover {{ vehicleList.length }} top-quality {{ type }}s available across India, starting from just ₹2,332.
       Choose from a range of <strong>new</strong> and <strong>pre-owned {{ type }}s</strong>, all listed at fixed
       prices.
@@ -35,7 +35,7 @@
 
 
     <button class="md:hidden p-2 text-gray-700" (click)="isMenuOpen = !isMenuOpen">☰</button>
-    <div class="flex flex-col md:flex-row gap-4 h-full md:h-[calc(100vh-6rem)]">
+    <div class="flex flex-col md:flex-row gap-4 h-full md:h-[calc(100vh-10rem)]">
       <!-- Filter Section -->
       <div class="order-1 md:order-none md:block w-full md:w-32 lg:w-64 overflow-y-auto"
         [ngClass]="{ 'hidden': !isMenuOpen, 'block': isMenuOpen, 'md:block': true }">
@@ -54,47 +54,93 @@
         </div>
 
         <div *ngIf="fuelTypes.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
-          <label class="block text-sm font-medium text-[#320c69] mb-2">Fuel Type</label>
-          <div *ngFor="let fuel of fuelTypes" class="flex items-center mb-1">
-            <input type="checkbox" [value]="fuel" (change)="onFuelTypeChange($event)"
-              [checked]="filters.fuelTypes.includes(fuel)" class="mr-2" />
-            <label>{{ fuel }}</label>
+          <div class="flex justify-between items-center mb-2">
+            <label class="text-sm font-medium text-[#320c69]">Fuel Type</label>
+            <button (click)="toggleSection('isFuelOpen')">
+              <span class="text-xl leading-none">
+                {{ isFuelOpen ? '-' : '+' }}
+              </span>
+            </button>
+          </div>
+          <div *ngIf="isFuelOpen">
+            <div *ngFor="let fuel of fuelTypes" class="flex items-center mb-1">
+              <input type="checkbox" [value]="fuel" (change)="onFuelTypeChange($event)"
+                [checked]="filters.fuelTypes.includes(fuel)" class="mr-2" />
+              <label>{{ fuel }}</label>
+            </div>
           </div>
         </div>
 
+
         <div *ngIf="transmissions.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
-          <label class="block text-sm font-medium text-[#320c69] mb-2">Transmission</label>
-          <div *ngFor="let t of transmissions" class="flex items-center mb-1">
-            <input type="checkbox" [value]="t" (change)="onTransmissionChange($event)"
-              [checked]="filters.transmissions.includes(t)" class="mr-2" />
-            <label>{{ t }}</label>
+          <div class="flex justify-between items-center mb-2">
+            <label class="text-sm font-medium text-[#320c69]">Transmission</label>
+            <button (click)="toggleSection('isTransmissionOpen')">
+              <span class="text-xl leading-none">
+                {{ isTransmissionOpen ? '-' : '+' }}
+              </span>
+            </button>
+          </div>
+          <div *ngIf="isTransmissionOpen">
+            <div *ngFor="let t of transmissions" class="flex items-center mb-1">
+              <input type="checkbox" [value]="t" (change)="onTransmissionChange($event)"
+                [checked]="filters.transmissions.includes(t)" class="mr-2" />
+              <label>{{ t }}</label>
+            </div>
           </div>
         </div>
 
         <div *ngIf="brands.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
-          <label class="block text-sm font-medium text-[#320c69] mb-2">Brand</label>
-          <div *ngFor="let b of brands" class="flex items-center mb-1">
-            <input type="checkbox" [value]="b" (change)="onBrandChange($event)" [checked]="filters.brands.includes(b)"
-              class="mr-2" />
-            <label>{{ b }}</label>
+          <div class="flex justify-between items-center mb-2">
+            <label class="text-sm font-medium text-[#320c69]">Brand</label>
+            <button (click)="toggleSection('isBrandOpen')">
+              <span class="text-xl leading-none">
+                {{ isBrandOpen ? '-' : '+' }}
+              </span>
+            </button>
+          </div>
+          <div *ngIf="isBrandOpen">
+            <div *ngFor="let b of brands" class="flex items-center mb-1">
+              <input type="checkbox" [value]="b" (change)="onBrandChange($event)" [checked]="filters.brands.includes(b)"
+                class="mr-2" />
+              <label>{{ b }}</label>
+            </div>
           </div>
         </div>
 
         <div *ngIf="locations.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
-          <label class="block text-sm font-medium text-[#320c69] mb-2">Location</label>
-          <div *ngFor="let loc of locations" class="flex items-center mb-1">
-            <input type="checkbox" [value]="loc" (change)="onLocationChange($event)"
-              [checked]="filters.locations.includes(loc)" class="mr-2" />
-            <label>{{ loc }}</label>
+          <div class="flex justify-between items-center mb-2">
+            <label class="text-sm font-medium text-[#320c69]">Location</label>
+            <button (click)="toggleSection('isLocationOpen')">
+              <span class="text-xl leading-none">
+                {{ isLocationOpen ? '-' : '+' }}
+              </span>
+            </button>
+          </div>
+          <div *ngIf="isLocationOpen">
+            <div *ngFor="let loc of locations" class="flex items-center mb-1">
+              <input type="checkbox" [value]="loc" (change)="onLocationChange($event)"
+                [checked]="filters.locations.includes(loc)" class="mr-2" />
+              <label>{{ loc }}</label>
+            </div>
           </div>
         </div>
 
         <div *ngIf="years.length != 0" class="bg-white shadow-md shadow-black/10 px-4 py-3 rounded-b-lg mb-2">
-          <label class="block text-sm font-medium text-[#320c69] mb-2">Year</label>
-          <div *ngFor="let y of years" class="flex items-center mb-1">
-            <input type="checkbox" [value]="y" (change)="onYearChange($event)" [checked]="filters.years.includes(y)"
-              class="mr-2" />
-            <label>{{ y }}</label>
+          <div class="flex justify-between items-center mb-2">
+            <label class="text-sm font-medium text-[#320c69]">Year</label>
+            <button (click)="toggleSection('isYearOpen')">
+              <span class="text-xl leading-none">
+                {{ isYearOpen ? '-' : '+' }}
+              </span>
+            </button>
+          </div>
+          <div *ngIf="isYearOpen">
+            <div *ngFor="let y of years" class="flex items-center mb-1">
+              <input type="checkbox" [value]="y" (change)="onYearChange($event)" [checked]="filters.years.includes(y)"
+                class="mr-2" />
+              <label>{{ y }}</label>
+            </div>
           </div>
         </div>
 
@@ -159,7 +205,8 @@
           </div>
 
           <div class="mt-6 flex gap-4">
-            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition" (click)="goToDetailPage(selectedVehicle)" >
+            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition"
+              (click)="goToDetailPage(selectedVehicle)">
               Buy Now
             </button>
             <button class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded-lg transition"
