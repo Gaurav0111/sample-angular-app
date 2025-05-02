@@ -14,6 +14,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrls: ['./register-vehicle.component.scss']
 })
 export class RegisterVehicleComponent {
+  formVisible = true;
   registrationNumber: string | undefined;
   vehicleForm: FormGroup;
   currentStep = 1;
@@ -61,8 +62,6 @@ export class RegisterVehicleComponent {
         .filter(city => city.state_name === selectedState)
         .map(city => city.name)
         .sort();
-
-      // Reset city when state changes
       this.vehicleForm.get('city')?.setValue('');
     });
   }
@@ -84,19 +83,32 @@ export class RegisterVehicleComponent {
       this.vehicleForm.get('city')?.valid &&
       this.vehicleForm.get('brand')?.valid &&
       this.vehicleForm.get('fuelType')?.valid;
-    }
-    
-    isStep2Valid() {
-      return this.vehicleForm.get('carModel')?.valid &&
+  }
+
+  isStep2Valid() {
+    return this.vehicleForm.get('carModel')?.valid &&
       this.vehicleForm.get('manufacturingYear')?.valid &&
       this.vehicleForm.get('kilometersDriven')?.valid &&
       this.vehicleForm.get('planningToSell')?.valid &&
       this.vehicleForm.get('transmission')?.valid;
   }
+  resetForm() {
+    this.vehicleForm.patchValue({ carModel: '' });
+    this.vehicleForm.patchValue({ kilometersDriven: '' });
+    this.vehicleForm.patchValue({ transmission: '' });
+    this.vehicleForm.patchValue({ brand: '' });
+    this.vehicleForm.patchValue({ fuelType: '' });
+    this.vehicleForm.get('manufacturingYear')?.setValue('');
+    this.vehicleForm.get('planningToSell')?.setValue('');
+    this.vehicleForm.get('state')?.setValue('');
+    this.vehicleForm.get('city')?.setValue('');
+    this.vehicleForm.get('fuelType')?.setValue('');
+  }
 
   onSubmit() {
     if (this.vehicleForm.valid) {
       console.log('Form Submitted:', this.vehicleForm.value);
+      this.resetForm();
     }
   }
 }

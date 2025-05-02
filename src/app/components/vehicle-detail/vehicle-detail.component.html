@@ -2,6 +2,7 @@
 
 <nav class="text-sm text-gray-500 p-4 pt-20">
     <a [routerLink]="['/']" class="hover:underline">Home</a> /
+    <a [routerLink]="['/automobile', vehicle.type]" class="hover:underline">{{ vehicle.type}}</a>/
     <span class="text-[#320c69] font-semibold">{{ vehicle.title}}</span>
 </nav>
 <div class="flex flex-col lg:flex-row justify-center items-start bg-white shadow-md p-4 rounded-xl gap-6">
@@ -43,19 +44,19 @@
 
         <div class="mt-4 space-y-2 text-sm">
             <div class="flex items-center gap-2">
-                <img src="assets/icons/vehicle-icon.svg" class="w-5 h-5" />
+                <!-- <img src="assets/icons/vehicle-icon.svg" class="w-5 h-5" /> -->
                 <span>Verified Seller</span>
             </div>
             <div class="flex items-center gap-2">
-                <img src="assets/icons/relationship-icon.svg" class="w-5 h-5" />
+                <!-- <img src="assets/icons/relationship-icon.svg" class="w-5 h-5" /> -->
                 <span>Get your vehicle insurance done</span>
             </div>
             <div class="flex items-center gap-2">
-                <img src="assets/icons/assistance-icon.svg" class="w-5 h-5" />
+                <!-- <img src="assets/icons/assistance-icon.svg" class="w-5 h-5" /> -->
                 <span>Personalised Assistance</span>
             </div>
             <div class="flex items-center gap-2">
-                <img src="assets/icons/fasttrack-icon.svg" class="w-5 h-5" />
+                <!-- <img src="assets/icons/fasttrack-icon.svg" class="w-5 h-5" /> -->
                 <span>Fast-Track Buying Experience</span>
             </div>
         </div>

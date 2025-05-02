@@ -9,4 +9,5 @@ export class AutomobileDetailsModel {
     brand?: string;
     year?: string;
     registrationNumber?: string;
+    type?: string;
 }
