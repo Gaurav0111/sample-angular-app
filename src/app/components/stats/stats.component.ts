@@ -9,12 +9,13 @@ import { Component } from '@angular/core';
 })
 export class StatsComponent {
   stats = [
-    { icon: '📈', value: '1 Lakh+', label: 'cars purchased' },
-    { icon: '⭐', value: '4.7', label: 'average rating' },
-    { icon: '📍', value: '40+', label: 'cities in India' },
+    { icon: '📈', value: '1 Lakh+', label: 'Cars Purchased' },
+    { icon: '⭐', value: '4.7', label: 'Avg. Rating' },
+    { icon: '📍', value: '40+', label: 'Cities Covered' },
   ];
+  
   reviews = [
-    { name: 'Surendra Bangar', handle: '@surendra', text: 'Had a great experience – impressed by the team\'s professionalism.', date: '25 Mar, 2025' },
+    { name: 'Surendra Bangar', handle: '@surendra', text: 'Had a great experience - impressed by the team\'s professionalism.', date: '25 Mar, 2025' },
     { name: 'Chirag Khosla', handle: '@chirag', text: 'The car pickup was well-managed. Everything went without a hitch.', date: '14 Mar, 2025' },
     { name: 'Vicky Talreja', handle: '@vicky', text: 'Transparent and smooth process.', date: '10 Mar, 2025' },
     { name: 'Anjali Mehta', handle: '@anjali', text: 'Seamless experience from start to finish.', date: '05 Mar, 2025' },

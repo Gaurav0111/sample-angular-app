@@ -1,6 +1,5 @@
-<header [ngClass]="{'scrolled': isScrolled}" class="fixed top-0 left-0 w-full bg-gradient-to-br from-blue-700 via-blue-500 to-white shadow-md z-50 h-16 transition-all">
+<header [ngClass]="{ 'scrolled': isScrolled, 'not-scrolled': !isScrolled }" class="fixed top-0 left-0 w-full shadow-md z-50 h-16 transition-all">
   <div class="flex justify-between px-6 py-4 items-center">
-
     <!-- Logo and Title -->
     <div class="flex items-center space-x-2">
       <img src="assets/logo/company-logo.png" alt="Logo" class="h-6 w-6 sm:h-8 sm:w-8">

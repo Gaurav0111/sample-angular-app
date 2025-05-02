@@ -1,32 +1,33 @@
-<section class="py-8 bg-[#f6f4f8] rounded-2xl text-white">
-    <div class="max-w-7xl mx-auto px-6">
-      <!-- Header -->
-      <div class="flex flex-col lg:flex-row justify-between items-center mb-8 text-center lg:text-left">
-        <h2 class="text-[#320c69] text-lg font-semibold mb-4 lg:mb-0">
-          Recommended by <span class="font-bold">1 Lakh+</span> sellers across India
-        </h2>
-      </div>
-  
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
-        <div *ngFor="let stat of stats" class="bg-[#3d0075] rounded-lg py-6 px-4 flex flex-col items-center">
-          <div class="text-3xl mb-2">{{ stat.icon }}</div>
-          <div class="text-2xl font-bold">{{ stat.value }}</div>
-          <div class="text-sm text-gray-300">{{ stat.label }}</div>
-        </div>
-      </div>
-  
-      <!-- Review Marquee -->
-      <div class="mt-10 overflow-hidden">
-        <div class="flex animate-scroll">
-          <div *ngFor="let review of reviews" class="min-w-[18rem] max-w-[18rem] bg-white text-black p-4 rounded-xl shadow-md mr-6">
-            <div class="font-semibold text-[#320c69]">{{ review.name }}</div>
-            <div class="text-sm text-gray-500 mb-2">{{ review.handle }}</div>
-            <p class="text-sm mb-2">{{ review.text }}</p>
-            <div class="text-xs text-gray-400">{{ review.date }}</div>
-          </div>
-        </div>
+<section class="py-10 bg-[#f6f4f8] rounded-2xl">
+  <div class="max-w-7xl mx-auto px-6 text-[#320c69]">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row justify-between items-center mb-10 text-center lg:text-left">
+      <h2 class="text-2xl sm:text-3xl font-semibold">
+        Trusted by <span class="font-bold text-[#3d0075]">1 Lakh+</span> sellers across India
+      </h2>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
+      <div *ngFor="let stat of stats" class="bg-[#3d0075] text-white rounded-xl py-8 px-6 shadow-lg hover:scale-105 transition-transform duration-300">
+        <div class="text-4xl mb-3">{{ stat.icon }}</div>
+        <div class="text-3xl font-bold">{{ stat.value }}</div>
+        <div class="text-sm text-gray-300 mt-1 uppercase tracking-wider">{{ stat.label }}</div>
       </div>
     </div>
-  </section>
-  
+
+    <!-- Review Marquee -->
+    <div class="mt-12 overflow-hidden">
+      <div class="flex animate-scroll gap-6">
+        <ng-container *ngFor="let repeat of [0, 1]">
+          <div *ngFor="let review of reviews" class="min-w-[18rem] max-w-[18rem] bg-white text-black p-5 rounded-xl shadow-md hover:shadow-xl transition duration-300">
+            <div class="font-semibold text-[#320c69] text-base mb-1">{{ review.name }}</div>
+            <div class="text-sm text-gray-500 mb-2">{{ review.handle }}</div>
+            <p class="text-sm mb-3 leading-snug text-gray-700">{{ review.text }}</p>
+            <div class="text-xs text-gray-400">{{ review.date }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>

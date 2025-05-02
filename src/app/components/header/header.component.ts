@@ -38,8 +38,9 @@ export class HeaderComponent {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     const offset = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.isScrolled = offset > 100; // Change '100' to whatever scroll distance you prefer
+    this.isScrolled = offset > 100; // Update this value to trigger the scroll effect
   }
+
 
   showProfile() {
     this.showLoginPopup = !this.showLoginPopup;

@@ -1,9 +1,24 @@
-header.scrolled {
-    background-color: white !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional */
-  }
+header {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* Smooth transition for color too */
   
-  header:not(.scrolled) {
-    background: linear-gradient(to right, #1e40af, #3b82f6, #ffffff); /* Ensure gradient only on non-scrolled state */
+    &.scrolled {
+      background-color: white !important; /* Solid white background */
+      color: #333; /* Dark text color when scrolled */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow when scrolled */
+  
+      /* Update logo and link text color */
+      .text-white {
+        color: #333 !important; /* Change text color for links and logo */
+      }
+    }
+  
+    &.not-scrolled {
+      background: linear-gradient(to right, #1e40af, #3b82f6, #ffffff); /* Gradient background when at top */
+      
+      /* Update logo and link text color */
+      .text-white {
+        color: white !important; /* Keep text white when not scrolled */
+      }
+    }
   }
   

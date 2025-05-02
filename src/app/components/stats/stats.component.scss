@@ -1,20 +1,18 @@
 @keyframes scroll-left {
     0% {
-        transform: translateX(0);
+      transform: translateX(0);
     }
-
     100% {
-        transform: translateX(-100%);
+      transform: translateX(-50%);
     }
-}
-
-.animate-scroll {
+  }
+  
+  .animate-scroll {
     display: flex;
-    animation: scroll-left 30s linear infinite;
-}
-
-.animate-scroll>div {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-}
+    animation: scroll-left 40s linear infinite;
+  }
+  
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+  
