@@ -54,7 +54,7 @@ export class RegisterVehicleComponent {
       carModel: ['', Validators.required],
       kilometersDriven: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
       planningToSell: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      // phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     });
 
     this.vehicleForm.get('state')?.valueChanges.subscribe(selectedState => {
@@ -98,6 +98,7 @@ export class RegisterVehicleComponent {
     this.vehicleForm.patchValue({ transmission: '' });
     this.vehicleForm.patchValue({ brand: '' });
     this.vehicleForm.patchValue({ fuelType: '' });
+    this.vehicleForm.patchValue({ phoneNumber: '' });
     this.vehicleForm.get('manufacturingYear')?.setValue('');
     this.vehicleForm.get('planningToSell')?.setValue('');
     this.vehicleForm.get('state')?.setValue('');
