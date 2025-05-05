@@ -8,11 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./asked-questions.component.scss']
 })
 export class AskedQuestionsComponent {
-  openIndex: number | null = null;
-
-  toggle(index: number) {
-    this.openIndex = this.openIndex === index ? null : index;
-  }
   faqs = [
     {
       question: 'What types of vehicles can I buy or sell on this platform?',

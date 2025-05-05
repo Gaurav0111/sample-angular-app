@@ -2,7 +2,7 @@
 
 <nav class="text-sm text-gray-500 p-4 pt-20">
     <a [routerLink]="['/']" class="hover:underline">Home</a> /
-    <a [routerLink]="['/automobile', vehicle.type]" class="hover:underline">{{ vehicle.type}}</a>/
+    <a [routerLink]="['/automobile', vehicle.type]" class="hover:underline">{{ toPascalCase(vehicle.type)}}</a>/
     <span class="text-[#320c69] font-semibold">{{ vehicle.title}}</span>
 </nav>
 <div class="flex flex-col lg:flex-row justify-center items-start bg-white shadow-md p-4 rounded-xl gap-6">

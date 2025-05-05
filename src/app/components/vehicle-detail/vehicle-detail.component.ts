@@ -17,4 +17,11 @@ export class VehicleDetailComponent {
     const navigation = this.router.getCurrentNavigation();
     this.vehicle = navigation?.extras?.state?.['vehicle'];
   }
+
+  toPascalCase(input: string): string {
+    return input
+      .split(/[\s_-]+/)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+  }
 }
