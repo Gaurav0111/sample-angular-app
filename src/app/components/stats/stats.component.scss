@@ -1,11 +1,11 @@
-@keyframes scroll-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
+@keyframes verticalScroll {
+  0% {
+    transform: translateY(0);
   }
+  100% {
+    transform: translateY(-50%);
+  }
+}
   
   .animate-scroll {
     display: flex;
@@ -15,4 +15,6 @@
   .animate-scroll:hover {
     animation-play-state: paused;
   }
-  
+  .animate-verticalScroll {
+    animation: verticalScroll 30s linear infinite;
+  }

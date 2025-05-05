@@ -144,133 +144,53 @@
         </div>
 
       </div>
-      <!-- vehical Section -->
       <div class="order-2 flex-1">
         <div class="mx-auto px-4 lg:px-8">
-          <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
             <div *ngFor="let vehicle of vehicleList" (click)="goToDetailPage(vehicle)"
-              class="bg-white rounded-lg shadow-sm hover:shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-transform duration-300 p-4 cursor-pointer">
-              <div class="relative">
-                <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="w-full h-48 object-cover rounded-md" />
-              </div>
+              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden relative">
 
-              <div class="mt-4">
-                <h2 class="text-lg font-semibold text-gray-900 mb-2 truncate">
-                  {{ vehicle.title }}
-                </h2>
-
-                <div class="text-xl font-bold text-[#320c69] mb-1">
-                  ₹ {{ vehicle.price / 2 | number }}
+              <!-- Header -->
+              <div class="px-4 pt-4 flex justify-between items-start">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-600">VEHICLE SALES</h3>
+                  <p class="text-xl font-bold text-black mt-1">₹ {{ vehicle.price | number }}</p>
                 </div>
-                <div class="text-sm text-gray-500 mb-4">EMI: N/A</div>
-
-                <div class="flex flex-wrap text-gray-600 text-xs gap-4">
-                  <div class="flex flex-col items-center gap-1">
-                    <p class="font-medium">KMs Driven</p>
-                    <p>{{ vehicle.kmsDriven | number }}</p>
-                  </div>
-                  <div class="flex flex-col items-center gap-1">
-                    <p class="font-medium">Location</p>
-                    <p>{{ vehicle.location }}</p>
-                  </div>
-                  <div class="flex flex-col items-center gap-1">
-                    <p class="font-medium">Fuel Type</p>
-                    <p>{{ vehicle.fuelType }}</p>
-                  </div>
-                  <div class="flex flex-col items-center gap-1">
-                    <p class="font-medium">Transmission</p>
-                    <p>{{ vehicle.transmission }}</p>
+                <div class="text-blue-500 mt-1">
+                  <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1.707-9.293a1 1 0 00-1.414-1.414L8 9.586V7a1 1 0 10-2 0v4a1 1 0 001 1h4a1 1 0 000-2H9.414l2.293-2.293z"
+                        clip-rule="evenodd" />
+                    </svg>
                   </div>
                 </div>
               </div>
+
+              <!-- Image -->
+              <div class="p-4">
+                <div class="w-full h-40 bg-gray-100 rounded-md overflow-hidden flex items-center justify-center">
+                  <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="object-contain h-full" />
+                </div>
+              </div>
+
+              <!-- Info -->
+              <div class="px-4 pb-4 grid grid-cols-1 gap-1 text-sm text-gray-700">
+                <div><strong>KMs Driven:</strong> {{ vehicle.kmsDriven | number }}</div>
+                <div><strong>Location:</strong> {{ vehicle.location }}</div>
+                <div><strong>Transmission:</strong> {{ vehicle.transmission }}</div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
+
+
+
     </div>
   </div>
 
-  <!-- <div class="border border-t-0 border-black w-full"></div>
-
-  <div class="my-10 max-w-full p-8 pt-0">
-    <div>
-      <h2 class="text-4xl text-[#320c69] font-semibold mb-4 text-center">Discounted {{type}}</h2>
-    </div>
-
-    <div class="flex flex-wrap justify-center gap-6 mx-auto">
-      <div *ngFor="let vehicle of vehicleList.slice(0,6)" class="bg-white rounded-xl shadow-md w-72 flex flex-col">
-
-        <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}"
-          class="w-full h-40 object-cover rounded-b-none rounded-md mb-4" />
-        <div class="p-4">
-
-          <h3 class="text-lg text-[#320c69] font-medium">{{ vehicle.title }}</h3>
-          <p class="text-sm text-[#320c69] mb-1">{{ vehicle.km }} kms · {{ vehicle.fuelType }} · {{ vehicle.transmission
-            }}
-          </p>
-
-          <div class="mt-1 mb-2">
-            <p class="text-lg font-bold text-[#320c69]">₹{{ vehicle.price-vehicle.price/4 | number }}</p>
-            <p class="text-sm text-[#320c69] line-through">
-              ₹{{ vehicle.price | number }}
-              <span class="text-green-600 font-semibold ml-1">(Save ₹{{ vehicle.price/4 | number }})</span>
-            </p>
-          </div>
-
-          <button (click)="goToDetailPage(vehicle)" class="mt-auto text-red-600 font-semibold hover:underline flex items-center">
-            View Details <span class="ml-1 text-red-600">⮞</span>
-          </button>
-
-          <p class="text-sm text-[#320c69] mt-2"> {{ vehicle.location }}</p>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="border border-t-0 border-black w-full"></div>
-
-
-  <div class="my-10 max-w-full p-8">
-    <div>
-      <h2 class="text-4xl text-[#320c69] text-center font-semibold mb-4">Used {{ type }} by budget</h2>
-    </div>
-
-    <div class="flex justify-center gap-3 mb-6 mx-auto">
-      <button *ngFor="let budget of ['0-5', '5-10', '10-15', '15-20']"
-        class="px-4 py-2 rounded-lg border border-[#320c69] text-[#320c69] text-sm font-medium hover:bg-[#320c69] hover:text-white"
-        [ngClass]="{ 'bg-[#320c69] text-white': selectedBudget === budget }" (click)="selectedBudget = budget">
-        {{ budget }}
-        {{type=='bike'?'':'lakh'}}
-      </button>
-    </div>
-
-    <div class="flex flex-wrap justify-center items-center gap-6">
-      <div *ngFor="let vehicle of vehicleList" class="bg-white rounded-xl shadow-md w-72 flex flex-col overflow-hidden">
-
-        <img [src]="vehicle.imageUrl" alt="{{ vehicle.title }}" class="w-full h-40 object-cover rounded-t-xl" />
-
-        <div class="p-4 flex flex-col flex-grow">
-
-          <h3 class="text-lg text-[#320c69] font-medium mb-1 truncate">{{ vehicle.title }}</h3>
-
-          <p class="text-sm text-[#320c69] mb-2">{{ vehicle.km }} kms · {{ vehicle.fuelType }} · {{ vehicle.transmission
-            }}</p>
-
-          <p class="text-lg font-bold text-[#320c69] mb-2">₹{{ vehicle.price | number:'1.2-2' }}</p>
-
-          <button (click)="goToDetailPage(vehicle)" class="text-red-600 font-semibold hover:underline flex items-center mb-2 mt-auto">
-            View Details <span class="ml-1">⮞</span>
-          </button>
-
-          <p class="text-sm text-[#320c69]">{{ vehicle.location }}</p>
-
-        </div>
-      </div>
-    </div>
-  </div>
- -->
 
 </section>
 <app-footer></app-footer>
